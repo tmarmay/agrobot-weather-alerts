@@ -85,3 +85,5 @@ Documentación interactiva disponible en `http://localhost:8000/docs`.
 ```bash
 pytest tests/ -v
 ```
+
+>Nota: subo el .env para que puedan probar el sistema, como son datos mockeados no hay info sensible
