@@ -16,8 +16,7 @@ async def create_weather_event(
     body: WeatherEventCreate,
     session: AsyncSession = Depends(get_db),
 ):
-    async with session.begin():
-        return await _repo.create(session, **body.model_dump())
+    return await _repo.create(session, **body.model_dump())
 
 
 @router.get("/", response_model=list[WeatherEventResponse])

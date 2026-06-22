@@ -15,8 +15,7 @@ async def create_alert(
     body: AlertCreate,
     session: AsyncSession = Depends(get_db),
 ):
-    async with session.begin():
-        return await _repo.create(session, **body.model_dump())
+    return await _repo.create(session, **body.model_dump())
 
 
 @router.get("/", response_model=list[AlertResponse])
@@ -42,8 +41,7 @@ async def get_alert(id: int, session: AsyncSession = Depends(get_db)):
 
 @router.delete("/{id}", status_code=204)
 async def delete_alert(id: int, session: AsyncSession = Depends(get_db)):
-    async with session.begin():
-        alert = await _repo.get_by_id(session, id=id)
-        if not alert:
-            raise HTTPException(status_code=404, detail="Alert not found")
-        await _repo.delete(session, alert)
+    alert = await _repo.get_by_id(session, id=id)
+    if not alert:
+        raise HTTPException(status_code=404, detail="Alert not found")
+    await _repo.delete(session, alert)
